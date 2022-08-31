@@ -61,4 +61,4 @@ run-scratch-image:
 # Debug scratch image.
 .PHONY: debug-scratch-image
 debug-scratch-image:
-	docker run -it --rm --pid="container:buggy-scratch" buggy-debug /bin/bash
+	docker run -it --cap-add=SYS_PTRACE --rm --pid="container:buggy-scratch" buggy-debug /bin/bash

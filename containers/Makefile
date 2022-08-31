@@ -18,3 +18,13 @@ run-basic-image:
 .PHONY: curl-app
 curl-app:
 	curl localhost:8080/foo/bar
+
+# Copy dlv binary into basic container.
+.PHONY: copy-dlv-to-container
+copy-dlv-to-container:
+	docker cp $$(which dlv) $$(docker ps -aqf "ancestor=$(BASIC_IMG)"):/dlv
+
+# Exec dlv within basic container.
+.PHONY: exec-dlv-basic-container
+exec-dlv-basic-container:
+	docker exec -it $$(docker ps -aqf "ancestor=$(BASIC_IMG)") /dlv attach 1
